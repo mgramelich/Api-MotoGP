@@ -1,6 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import playerRoutes from './player-routes';
-import clubRoutes from './club-routes';
+import ridersRoutes from './rider-routes';
+import teamsRoutes from './teams-routes';
 
 //
 const router: Router = Router();
@@ -16,8 +16,8 @@ const midRoutes = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 router.use(midRoutes);
-router.use(playerRoutes);
-router.use(clubRoutes);
+router.use(ridersRoutes);
+router.use(teamsRoutes);
 
 //
 export default router;

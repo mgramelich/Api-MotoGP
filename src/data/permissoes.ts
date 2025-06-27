@@ -1,9 +1,9 @@
 export const permissoes = {
-  clubs: {
+  teams: {
     access: true,
     edit: true,
   },
-  players: {
+  riders: {
     access: true,
     edit: true,
   }
