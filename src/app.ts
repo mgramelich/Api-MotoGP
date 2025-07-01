@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-
+import cors from 'cors';
 import router from './router/_routes';
 
 export const createApp = () => {
@@ -7,6 +7,7 @@ export const createApp = () => {
 
   app.use(express.json());
   app.use("/api", router);
+  app.use(cors());
 
   return app;
 }
