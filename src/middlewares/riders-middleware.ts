@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { permissoes } from '../data/permissoes';
 
-
 const middlewareRiders = (req: Request, res: Response, next: Function) => {
   console.log('Entrou Middleware: Riders');
   console.log('reqParams: ', req?.params.id ?? "");
@@ -10,6 +9,14 @@ const middlewareRiders = (req: Request, res: Response, next: Function) => {
   if (!permissoes.riders.access) {
     res.status(400).json({ msg: "Sem permissão de acesso (Riders)" });
     return;
+  }
+
+  // Validar Cadastro
+  if (req.route.path.includes('add-rider')) {
+    if (!permissoes.riders.edit) {
+      res.status(400).json({ msg: "Sem permissão de cadastrar (Riders)" });
+      return;
+    }
   }
 
   // Validar edição
