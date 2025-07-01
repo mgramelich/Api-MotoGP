@@ -16,6 +16,5 @@ riderRoutes.delete("/delete-rider/:id", middlewareRiders, deleteRider);
 
 // editar
 riderRoutes.post("/edit-rider", middlewareRiders, editRider);
-riderRoutes.post("/edit-rider/:id", middlewareRiders, editRider);
 
 export default riderRoutes;

@@ -63,3 +63,21 @@ export const deleteRider = async (riderId: IRiderModel['id']): Promise<boolean> 
 
   return true;
 };
+
+//
+export const editRider = async (dados: IRiderModel): Promise<boolean> => {
+  const index = ridersList.findIndex(rider => rider.id === dados.id);
+  if (index === -1) {
+    return false;
+  }
+
+  ridersList[index] = {
+    ...ridersList[index],
+    name: dados.name,
+    currentNumber: dados.currentNumber,
+    teamId: dados.teamId
+  };
+
+  fs.writeFileSync(fileName, JSON.stringify(ridersList));
+  return true;
+};

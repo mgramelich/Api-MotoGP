@@ -2,9 +2,6 @@ import { Request, Response } from 'express';
 import { permissoes } from '../data/permissoes';
 
 const middlewareRiders = (req: Request, res: Response, next: Function) => {
-  console.log('Entrou Middleware: Riders');
-  console.log('reqParams: ', req?.params.id ?? "");
-
   // Validar leitura
   if (!permissoes.riders.access) {
     res.status(400).json({ msg: "Sem permissão de acesso (Riders)" });

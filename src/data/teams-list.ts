@@ -1,32 +1,4 @@
 import { ITeamModel } from "../models/team-model";
+import teamsJson from './teams-list.json';
 
-export const teamsList: ITeamModel[] = [
-  {
-    id: 1,
-    factory: "Yamaha",
-    currentName: "Monster Energy Yamaha",
-    type: "Factory Team",
-    bike: "Yamaha YZR-M1"
-  },
-  {
-    id: 2,
-    factory: "Ducati",
-    currentName: "Ducati Lenovo",
-    type: "Factory Team",
-    bike: "Ducati Desmosedici GP25"
-  },
-  {
-    id: 3,
-    factory: "Honda",
-    currentName: "Honda HRC Castrol",
-    type: "Factory Team",
-    bike: "Honda RC213V"
-  },
-  {
-    id: 4,
-    factory: "Aprilia",
-    currentName: "Aprilia Racing",
-    type: "Factory Team",
-    bike: "Aprilia RS-GP25"
-  }
-];
+export const teamsList: ITeamModel[] = teamsJson as ITeamModel[];
