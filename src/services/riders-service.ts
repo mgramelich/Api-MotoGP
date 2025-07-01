@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { ok, noContent, badRequest } from '../utils/http-helper';
-import { findRider, addRider } from '../repositories/riders-repository';
+import { findRider, addRider, deleteRider } from '../repositories/riders-repository';
 import { IRiderModel } from '../models/rider-model';
 
 
@@ -18,12 +18,27 @@ export const getRiderService = async (req: Request, res: Response) => {
 
 //
 export const addRiderService = async (req: Request, res: Response) => {
-
   if (!req?.body) {
-    return await badRequest();
+    return await noContent();
+  }
+  else {
+    const data = await addRider(req.body);
+    if (data) {
+      return await ok(data);
+    }
+    else {
+      return await badRequest();
+    }
+  }
+}
+
+//
+export const deleteRiderService = async (req: Request, res: Response) => {
+  if (!req?.params?.id) {
+    return await noContent();
   }
 
-  const data = await addRider(req.body);
+  const data = await deleteRider(parseInt(req.params.id));
   if (data) {
     return await ok(data);
   }
@@ -31,9 +46,7 @@ export const addRiderService = async (req: Request, res: Response) => {
     return await badRequest();
   }
 
-  return await noContent();
 }
-
 
 
 //

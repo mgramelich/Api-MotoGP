@@ -14,7 +14,7 @@ const middlewareTeams = (req: Request, res: Response, next: Function) => {
 
   // Validar edição
   if (req.route.path.includes('edit-team')) {
-    if (!permissoes.teams.edit) {
+    if (!permissoes.teams.update) {
       res.status(400).json({ msg: "Sem permissão de editar (Teams)" });
       return;
     }

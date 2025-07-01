@@ -1,10 +1,14 @@
 export const permissoes = {
   teams: {
     access: true,
-    edit: true,
+    add: true,
+    update: true,
+    delete: true,
   },
   riders: {
     access: true,
-    edit: true,
+    add: true,
+    update: true,
+    delete: true,
   }
 }

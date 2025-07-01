@@ -21,26 +21,44 @@ export const findRider = async (parametro?: string | number | null): Promise<IRi
 };
 
 
-
+//
 export const addRider = async (dados: IRiderModel): Promise<boolean> => {
-  console.log("Dados recebidos para adicionar: ", dados);
-
   if (Object.keys(dados).length === 0) {
     return false;
   }
 
+  // Gera o ID
+  const nextId = ridersList.reduce((max, rider) => {
+    if (typeof rider?.id === "number" && rider.id > max) {
+      return rider.id;
+    }
+
+    return max;
+  }, 0);
+
+  //
   const newRider: IRiderModel = {
-    id: ridersList.length + 1,
+    id: nextId + 1,
     name: dados.name,
     currentNumber: dados.currentNumber,
     teamId: dados.teamId
   };
 
-
-  console.log("\n\nNovo piloto a ser adicionado: ", newRider);
   ridersList.push(newRider);
-  console.log("\n\nLista de pilotos atualizada: ", ridersList);
+  fs.writeFileSync(fileName, JSON.stringify(ridersList));
 
+  return true;
+};
+
+
+//
+export const deleteRider = async (riderId: IRiderModel['id']): Promise<boolean> => {
+  const index = ridersList.findIndex(rider => rider.id === riderId);
+  if (index === -1) {
+    return false; // Rider not found
+  }
+
+  ridersList.splice(index, 1);
   fs.writeFileSync(fileName, JSON.stringify(ridersList));
 
   return true;

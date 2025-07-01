@@ -21,5 +21,12 @@ export const teamsList: ITeamModel[] = [
     currentName: "Honda HRC Castrol",
     type: "Factory Team",
     bike: "Honda RC213V"
+  },
+  {
+    id: 4,
+    factory: "Aprilia",
+    currentName: "Aprilia Racing",
+    type: "Factory Team",
+    bike: "Aprilia RS-GP25"
   }
 ];
