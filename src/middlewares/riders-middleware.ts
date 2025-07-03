@@ -1,39 +1,52 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { permissoes } from '../data/permissoes';
 
-const middlewareRiders = (req: Request, res: Response, next: Function) => {
-  // Validar leitura
-  if (!permissoes.riders.access) {
-    res.status(400).json({ msg: "Sem permissão de acesso (Riders)" });
+const middlewareRiders = (req: Request, res: Response, next: NextFunction) => {
+  const { action } = req.query;
+
+  // Permite acesso livre à rota get-rider
+  if (action === 'get-rider') {
+    return next();
+  }
+
+  const userPermissions = req.user?.permissions?.riders;
+
+  if (!userPermissions) {
+    res.status(401).json({ message: 'Não autenticado ou permissões não carregadas.' });
     return;
   }
 
-  // Validar Cadastro
-  if (req.route.path.includes('add-rider')) {
-    if (!permissoes.riders.add) {
-      res.status(400).json({ msg: "Sem permissão de cadastrar (Riders)" });
-      return;
-    }
-  }
-
-  // Validar exclusão
-  if (req.route.path.includes('delete-rider')) {
-    if (!permissoes.riders.delete) {
-      res.status(400).json({ msg: "Sem permissão de remover (Riders)" });
-      return;
-    }
-  }
-
-  // Validar edição
-  if (req.route.path.includes('edit-rider')) {
-    if (!permissoes.riders.update) {
-      res.status(400).json({ msg: "Sem permissão de editar (Riders)" });
-      return;
-    }
+  switch (action) {
+    case 'add-rider':
+      if (!userPermissions.add) {
+        res.status(403).json({ message: 'Acesso negado: Você não tem permissão para adicionar pilotos.' });
+        return;
+      }
+      break;
+    
+    case 'delete-rider':
+      if (!userPermissions.delete) {
+        res.status(403).json({ message: 'Acesso negado: Você não tem permissão para deletar pilotos.' });
+        return;
+      }
+      break;
+    
+    case 'edit-rider':
+      if (!userPermissions.update) {
+        res.status(403).json({ message: 'Acesso negado: Você não tem permissão para editar pilotos.' });
+        return;
+      }
+      break;
+    
+    default:
+      if (!userPermissions.access) {
+        res.status(403).json({ message: 'Acesso negado ao recurso de pilotos.' });
+        return;
+      }
+      break;
   }
 
   next();
 };
-
 
 export default middlewareRiders;

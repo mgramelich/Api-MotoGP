@@ -16,7 +16,6 @@ export const deleteRider = async (req: Request, res: Response) => {
   res.status(httpResponse.statusCode).json(httpResponse.body);
 }
 
-
 export const editRider = async (req: Request, res: Response) => {
   const httpResponse = await editRiderService(req, res);
   res.status(httpResponse.statusCode).json(httpResponse.body);
