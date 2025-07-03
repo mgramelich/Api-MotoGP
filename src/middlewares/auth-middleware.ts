@@ -25,7 +25,7 @@ const roleMap: { [key: number]: keyof typeof permissoes } = {
 
 export const authenticateJWT = (req: Request, res: Response, next: NextFunction): void => {
     // Permite acesso livre à rota get-rider
-    if (req.path.includes('get-rider')) {
+    if (req.path.includes('get-rider') || req.path.includes('get-team')) {
         return next();
     }
 
